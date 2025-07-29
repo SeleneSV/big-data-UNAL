@@ -33,9 +33,9 @@ El sistema se compone de cuatro scripts principales orquestados por un controlad
 ```mermaid
 graph TD
     A[controlador.sh] --> B{Inicia Ciclo};
-    B --> C[1. apolo_11.sh: Genera Logs];
-    C --> D[2. consolidado.sh: Consolida Logs];
-    D --> E[3. reportes.sh: Genera Reportes y Limpia];
+    B --> C[apolo_11.sh: Genera Logs];
+    C --> D[consolidado.sh: Consolida Logs];
+    D --> E[reportes.sh: Genera Reportes y Limpia];
     E --> F{Espera 'exec_freq' segundos};
     F --> B;
 
