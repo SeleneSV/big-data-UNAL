@@ -2,10 +2,12 @@
 
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# =====================================
 # CONFIGURACIÓN
 LOGS_DIR="$working_dir/devices"
 CONSOLIDATED_DIR="$working_dir/consolidados"
 HEADER="date;mission;device_type;device_status;hash"
+# =====================================
 
 # Verificar que existan archivos en la carpeta
 if [ ! -d "$LOGS_DIR" ]; then
@@ -20,6 +22,7 @@ else
     echo "Creando '$CONSOLIDATED_DIR'..."
     mkdir -p "$CONSOLIDATED_DIR" && chmod 755 "$CONSOLIDATED_DIR"
 fi
+
 
 echo "Iniciando consolidado por ejecución..."
 TIMESTAMP=$(date "+%d%m%Y%H%M%S")

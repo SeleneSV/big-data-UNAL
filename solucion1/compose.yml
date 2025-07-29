@@ -4,11 +4,9 @@ services:
     container_name: apolo11-monitor
     # restart: always
     volumes:
-      # Monta tu directorio de configuración para poder modificarlo desde el host.
       - ./apolo_11.config:/app/apolo_11.config
       - ./controlador.conf:/app/controlador.conf
 
-      # Monta directorios para datos y logs para que sean persistentes.
       - ./devices:/app/devices
       - ./reportes:/app/reportes
       - ./consolidados:/app/consolidados
