@@ -1,0 +1,23 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Actualiza paquetes e instala bash
+RUN apt-get update && \
+    apt-get install -y bash python3 python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copia los scripts y el requirements.txt
+COPY . .
+
+# Instala dependencias de Python
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
+
+# Da permisos de ejecución a los scripts
+RUN chmod +x /app/*.sh
+
+# Ejecuta un script bash al iniciar (puedes cambiar esto en docker-compose)
+CMD ["bash", "controlador.sh"]

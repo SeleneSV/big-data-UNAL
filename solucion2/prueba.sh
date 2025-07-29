@@ -1,0 +1,1 @@
+echo -n "2025-07-13|Vigilancia|Sensor|Activo" | sha256sum
