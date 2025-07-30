@@ -82,6 +82,12 @@ La estructura esperada del proyecto es la siguiente:
 
 Para ejecutar el sistema:
 
+Asegurarse de estar ubicado en el directorio `solucion1`.
+
+    ```bash
+    cd big-data-UNAL/solucion1
+    ```
+
 **1. Construir el contenedor**
 
 ```bash

@@ -52,6 +52,17 @@ El usuario interactúa con el sistema a través del comando `systemctl` para hab
 *   **Dependencia del Entorno:** Requiere un sistema operativo anfitrión que utilice `systemd` (ej. Ubuntu, Debian, CentOS, Fedora). No es portable a otros sistemas operativos o a entornos que no lo incluyan.
 *   **Incompatibilidad con Contenedores Ligeros:** Los contenedores Docker estándar no suelen ejecutar un `init system` completo como `systemd`, lo que hace que esta solución no sea directamente aplicable en dichos entornos sin configuraciones complejas.
 
+#### **Ejecución**
+
+1. Clonar el repositorio y acceder a la solución 1:
+
+```bash
+git clone https://github.com/SeleneSV/big-data-UNAL.git
+cd big-data-UNAL/solucion1
+```
+
+2. Seguir las instrucciones del archivo `README.md` dentro del directorio `solucion1`.
+
 ---
 
 ### **3.2. Solución 2: Sistema Controlador con Ciclo Infinito**
@@ -78,3 +89,14 @@ El usuario inicia manualmente el script controlador, que permanece en ejecución
 
 *   **Portabilidad:** Al no tener dependencias externas, esta solución puede ejecutarse en cualquier sistema operativo y es ideal para contenedores.
 *   **Simplicidad Conceptual:** La lógica es autocontenida y fácil de entender sin necesidad de conocer sistemas de gestión de servicios específicos.
+
+
+#### **Ejecución**
+1. Clonar el repositorio y acceder a la solución 1:
+
+```bash
+git clone https://github.com/SeleneSV/big-data-UNAL.git
+cd big-data-UNAL/solucion2
+```
+
+2. Seguir las instrucciones del archivo `README.md` dentro del directorio `solucion2`.

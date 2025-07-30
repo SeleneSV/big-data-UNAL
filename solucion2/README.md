@@ -44,20 +44,20 @@ El sistema sigue un flujo de trabajo claro y modular:
 |
 ├── create-generator-service.sh   # Crea el archivo .service del generador.
 ├── create-generator-timer.sh     # Crea el archivo .timer del generador.
-├── create-reporter-service.sh    # Crea el archivo .service del reportador.
-├── create-reporter-timer.sh      # Crea el archivo .timer del reportador.
+├── create-reporter-service.sh    # Crea el archivo .service del reporter.
+├── create-reporter-timer.sh      # Crea el archivo .timer del reporter.
 |
-├── execute_generator.sh      # (Obsoleto) Usar monitoring_system.sh
-├── execute_daily_reporter.sh # (Obsoleto) Usar monitoring_system.sh
+├── execute_generator.sh      # Ejecuta el generador.sh
+├── execute_daily_reporter.sh # Ejecuta el daily reporter.sh
 |
-├── monitoring_system.sh      # Script principal para configurar y cambiar el modo del sistema.
+├── monitoring_system.sh      # Script principal para ejecutar el flujo completo: generador y reporter.
 ├── update_generator.sh       # Script para aplicar cambios en la configuración del generador.
 ├── update_reporter.sh        # Script para aplicar cambios en la configuración del reportador.
 |
 ├── apolo_11.config           # Configuración para la generación de logs (misiones, dispositivos).
 ├── system.config             # Configuración maestra del sistema (modo, tiempos).
-├── generator.config          # (Autogenerado) Configuración para el servicio/timer del generador.
-└── reporter.config           # (Autogenerado) Configuración para el servicio/timer del reportador.
+├── generator.config          # Configuración para el servicio/timer del generador.
+└── reporter.config           # Configuración para el servicio/timer del reporter.
 ```
 
 ## Prerrequisitos
@@ -128,6 +128,12 @@ Si no se realiza este cambio, el servicio fallará al no encontrar el directorio
 
 1.  **Clonar el Repositorio:**
     Obtener todos los scripts del proyecto en entorno local.
+
+    Asegurarse de estar ubicado en el directorio `solucion2`.
+
+    ```bash
+    cd big-data-UNAL/solucion2
+    ```
 
 2.  **Dar Permisos de Ejecución:**
     Se debe asegurar de que todos los scripts `.sh` tengan permisos de ejecución.
