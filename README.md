@@ -12,8 +12,8 @@ Se detallan dos propuestas de arquitectura para la implementación del programa 
 
 Se han desarrollado dos enfoques distintos para satisfacer este requerimiento:
 
-1.  **Solución 1:** Una implementación basada en `systemd`, el sistema de inicio y gestión de servicios estándar en linux.
-2.  **Solución 2:** Un sistema controlador autónomo basado en un script con un ciclo infinito, diseñado para ser independiente del sistema operativo anfitrión.
+1.  **Solución 1:** Un sistema controlador autónomo basado en un script con un ciclo infinito, diseñado para ser independiente del sistema operativo anfitrión.
+3.  **Solución 2:** Una implementación basada en `systemd`, el sistema de inicio y gestión de servicios estándar en linux.
 
 Se presentan ambas arquitectura para facilitar la elección de la solución más adecuada según el entorno de despliegue.
 
@@ -23,7 +23,43 @@ El programa "Apolo-11" tiene como responsabilidad principal la ejecución de sim
 
 ## **3. Propuestas de Arquitectura**
 
-### **3.1. Solución 1: Orquestación con `systemd/systemctl`**
+### **3.1. Solución 1: Sistema Controlador con Ciclo Infinito**
+
+Esta solución fue diseñada con la portabilidad como principal objetivo, eliminando dependencias del sistema operativo anfitrión.
+
+#### **Descripción**
+
+La arquitectura se basa en un script "controlador" que actúa como un orquestador.
+
+1.  **Script Controlador (`controlador.sh`):** Es el punto de entrada. Este script implementa un ciclo infinito (`while True`).
+2.  **Lógica del Ciclo:** Dentro del ciclo, el controlador:
+    *   Ejecuta el programa principal "Apolo-11" como un subproceso.
+    *   Espera a que el subproceso finalice.
+    *   Hace una pausa (`sleep`) durante un intervalo de tiempo configurable.
+    *   Repite el ciclo.
+
+![Solución 2](imgs/solucion2.png)
+
+El usuario inicia manualmente el script controlador, que permanece en ejecución para gestionar el ciclo de vida de Apolo-11.
+
+
+#### **Consideraciones**
+
+*   **Portabilidad:** Al no tener dependencias externas, esta solución puede ejecutarse en cualquier sistema operativo y es ideal para contenedores.
+*   **Simplicidad Conceptual:** La lógica es autocontenida y fácil de entender sin necesidad de conocer sistemas de gestión de servicios específicos.
+
+
+#### **Ejecución**
+1. Clonar el repositorio y acceder a la solución 1:
+
+```bash
+git clone https://github.com/SeleneSV/big-data-UNAL.git
+cd big-data-UNAL/solucion1
+```
+
+2. Seguir las instrucciones del archivo `README.md` dentro del directorio `solucion1`.
+
+### **3.2. Solución 2: Orquestación con `systemd/systemctl`**
 
 Esta solución aprovecha las capacidades nativas de los sistemas operativos Linux modernos para la gestión de servicios y tareas programadas.
 
@@ -54,44 +90,6 @@ El usuario interactúa con el sistema a través del comando `systemctl` para hab
 
 #### **Ejecución**
 
-1. Clonar el repositorio y acceder a la solución 1:
-
-```bash
-git clone https://github.com/SeleneSV/big-data-UNAL.git
-cd big-data-UNAL/solucion1
-```
-
-2. Seguir las instrucciones del archivo `README.md` dentro del directorio `solucion1`.
-
----
-
-### **3.2. Solución 2: Sistema Controlador con Ciclo Infinito**
-
-Esta solución fue diseñada con la portabilidad como principal objetivo, eliminando dependencias del sistema operativo anfitrión.
-
-#### **Descripción**
-
-La arquitectura se basa en un script "controlador" que actúa como un orquestador.
-
-1.  **Script Controlador (`controlador.sh`):** Es el punto de entrada. Este script implementa un ciclo infinito (`while True`).
-2.  **Lógica del Ciclo:** Dentro del ciclo, el controlador:
-    *   Ejecuta el programa principal "Apolo-11" como un subproceso.
-    *   Espera a que el subproceso finalice.
-    *   Hace una pausa (`sleep`) durante un intervalo de tiempo configurable.
-    *   Repite el ciclo.
-
-![Solución 2](imgs/solucion2.png)
-
-El usuario inicia manualmente el script controlador, que permanece en ejecución para gestionar el ciclo de vida de Apolo-11.
-
-
-#### **Consideraciones**
-
-*   **Portabilidad:** Al no tener dependencias externas, esta solución puede ejecutarse en cualquier sistema operativo y es ideal para contenedores.
-*   **Simplicidad Conceptual:** La lógica es autocontenida y fácil de entender sin necesidad de conocer sistemas de gestión de servicios específicos.
-
-
-#### **Ejecución**
 1. Clonar el repositorio y acceder a la solución 2:
 
 ```bash
@@ -100,3 +98,5 @@ cd big-data-UNAL/solucion2
 ```
 
 2. Seguir las instrucciones del archivo `README.md` dentro del directorio `solucion2`.
+
+---
