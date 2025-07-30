@@ -71,4 +71,3 @@ for i in $(seq 1 $total_logs); do
     echo "date;mission;device_type;device_status;hash" > $output_path
     echo "$current_date;$apl;$device_type;$status;$hash" >> $output_path
 done
-
