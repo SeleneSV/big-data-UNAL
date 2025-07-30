@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Constantes
 SERVICE_NAME="reporter-apolo11.service"
 TIMER_NAME="reporter-apolo11.timer"

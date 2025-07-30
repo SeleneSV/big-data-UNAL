@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Constantes
 SERVICE_NAME="generator-apolo11.service"
 TIMER_NAME="generator-apolo11.timer"

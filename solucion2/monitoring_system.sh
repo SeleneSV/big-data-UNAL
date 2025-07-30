@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
@@ -35,6 +37,7 @@ echo -e "\nActualizando generador con systemd..."
 
 sudo systemctl stop generator-apolo11.timer
 sudo ./create-generator-service.sh
+sudo ./create-reporter-service.sh
 sudo ./create-generator-timer.sh
 
 echo "Recargando el demonio de systemd..."
@@ -71,6 +74,7 @@ echo -e "\nActualizando generador con systemd..."
 
 sudo systemctl stop generator-apolo11.timer
 sudo ./create-generator-service.sh
+sudo ./create-reporter-service.sh
 sudo ./create-generator-timer.sh
 
 echo "Recargando el demonio de systemd..."
