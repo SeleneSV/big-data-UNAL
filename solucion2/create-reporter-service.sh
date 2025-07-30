@@ -46,9 +46,6 @@ WorkingDirectory=${working_dir}
 
 ExecStart=/bin/bash -c 'source venv/bin/activate && ./consolidado.sh && ./reportes.sh'
 
-User=selene
-Group=selene
-
 EOF
 
 # Asignar permisos al archivo de servicio
