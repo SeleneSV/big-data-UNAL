@@ -5,19 +5,19 @@ set -o pipefail
 # Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# CONFIGURACIÓN
+
+# Definición de directorios
 LOGS_DIR="$working_dir/devices"
 CONSOLIDATED_DIR="$working_dir/consolidados"
 REPORTS_DIR="$working_dir/reportes"
 BACKUPS_DIR="$working_dir/backups"
-
 DELIMITER=";"
 
 # Buscar consolidado más reciente
 echo "Buscando el archivo de consolidado más reciente..."
 INPUT_FILE=$(ls -t "$CONSOLIDATED_DIR"/consolidado-*.log 2>/dev/null | head -n 1)
 
-# Validar que encontramos un archivo de entrada
+# Validar que se encontró un archivo de consolidado
 if [ -z "$INPUT_FILE" ]; then
     echo "Error: No se encontró ningún archivo de consolidado en '$CONSOLIDATED_DIR'."
     exit 1
@@ -39,6 +39,7 @@ else
     mkdir -p "$BACKUPS_DIR" && chmod 755 "$BACKUPS_DIR"
 fi
 
+# ========================================
 # GENERACIÓN DE REPORTES
 
 # timestamp para el nombre de archivo de los reportes
@@ -66,7 +67,7 @@ cat "$INPUT_FILE" | csvsql -d "$DELIMITER" --query "
 " | csvlook > "$OUTPUT_FILE_DESCONEXIONES"
 
 # Misiones inoperables
-echo "Generando reporte: Consolidación de Misiones (Dispositivos Inoperables)..."
+echo "Generando reporte: Consolidación de Misiones..."
 OUTPUT_FILE_INOPERABLES="${REPORTS_DIR}/APLSTATS-INOPERABLES-${TIMESTAMP}.log"
 cat "$INPUT_FILE" | csvsql -d "$DELIMITER" --query "
     SELECT mission, COUNT(*) AS inoperable_devices
@@ -92,8 +93,9 @@ cat "$INPUT_FILE" | csvsql -d "$DELIMITER" --query "
 
 echo "Todos los reportes han sido generados en la carpeta: $REPORTS_DIR"
 
+# ==================================================
 # MANEJO DE ARCHIVOS PROCESADOS
-echo "--------------------------------------------------------"
+
 echo "Iniciando limpieza de logs..."
 
 file_count=$(find "$LOGS_DIR" -maxdepth 1 -type f -name "*.log" | wc -l)
@@ -107,6 +109,3 @@ if [ "$file_count" -gt 0 ]; then
 else
     echo "No se encontraron archivos .log en '$LOGS_DIR' para mover. No se requiere limpieza."
 fi
-
-echo "--------------------------------------------------------"
-echo "Ciclo de reporte y respaldo finalizado con éxito."

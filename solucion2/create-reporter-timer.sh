@@ -1,15 +1,19 @@
 #!/bin/bash
 
-# Salir inmediatamente si un comando falla
+# Salir si un comando falla
 set -e
 
-# Constantes
+
+# Directorio de trabajo
+working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+
+# Constantes del servicio
 SERVICE_NAME="reporter-apolo11.service"
 TIMER_NAME="reporter-apolo11.timer"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"
 TIMER_FILE="/etc/systemd/system/${TIMER_NAME}"
 
-working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # CARGAR CONFIGURACIONES
 reporter_config_file="$working_dir/reporter.config"
@@ -45,6 +49,7 @@ Unit=reporter-apolo11.service
 WantedBy=timers.target
 EOF
 
+# Asignar permisos al archivo de servicio
 chmod 644 "${TIMER_FILE}"
 echo "Archivo de timer creado con éxito."
 

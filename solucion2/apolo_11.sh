@@ -3,6 +3,7 @@
 # Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+
 # ============================
 # CARGAR CONFIGURACIONES
 apolo_11_config_file="$working_dir/apolo_11.config"
@@ -14,7 +15,10 @@ if [ -f "$apolo_11_config_file" ]; then
         devices_types=("satellite" "spaceship" "space_vehicle")
         num_logs_range=(1 5)
     fi
+# ============================
 
+
+# ============================
 # CONSTANTES
 status_options=(excellent good warning faulty killed unknown)
 min=1 # valor mínimo para la generación del código
@@ -24,27 +28,26 @@ total_devices=${#devices_types[@]}
 total_status=${#status_options[@]}
 #==============================
 
+
 # Crear directorio de salida a partir del directorio actual
-# current_dir=$(pwd)
 output_dir="${working_dir}/devices"
 mkdir -p "$output_dir"
-echo "Output directory: $output_dir"
+
 
 # Generación de archivos
 # Seleccionar número de archivos a crear
 total_logs=$(($RANDOM%(${num_logs_range[1]}-${num_logs_range[0]}+1)+${num_logs_range[0]}))
 echo "Total de logs: $total_logs"
 
+
+echo "Iniciando generación de logs..."
 for i in $(seq 1 $total_logs); do
-    echo "Log número: $i"
-    # Nombre de archivo de salida
+    
     # Seleccionar nombre de la misión
     apl=${misions_names[$(($RANDOM % $total_misions))]}
     random_num=$(($RANDOM%($max-$min+1)+$min))
     codigo="0000${random_num}"
     output_name="${apl}-${codigo}.log"
-    echo "Output name: $output_name"
-
 
     # Seleccionar tipo de dispositivo
     device_type=${devices_types[$(($RANDOM % $total_devices))]}
@@ -59,7 +62,6 @@ for i in $(seq 1 $total_logs); do
 
     # Verificar si la misión es desconocida
     if [ $apl = "UNKN" ]; then
-        echo "misión desconocida"
         device_type="unknown"
         status="unknown"
         hash="unknown"
@@ -67,9 +69,7 @@ for i in $(seq 1 $total_logs); do
 
     # Guardar archivo
     output_path="$output_dir/$output_name"
-    echo "Full output path: $output_path"
     echo "date;mission;device_type;device_status;hash" > $output_path
     echo "$current_date;$apl;$device_type;$status;$hash" >> $output_path
-    # touch $output_path
 done
 

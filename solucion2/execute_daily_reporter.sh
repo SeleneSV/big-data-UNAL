@@ -11,7 +11,6 @@ echo -e "\nActivando el timer con systemd..."
 echo "Recargando el demonio de systemd..."
 systemctl daemon-reload
 
-# Asegurar de que el servicio no esté habilitado por sí mismo
 echo "-> Asegurando que el servicio '${SERVICE_NAME}' no se inicie al arranque..."
 systemctl disable "${SERVICE_NAME}" &> /dev/null || true
 
@@ -26,7 +25,3 @@ systemctl list-timers | grep "${SERVICE_NAME%.service}" || echo "Timer aún no v
 echo -e "\nProceso completado"
 echo -e "El timer '${TIMER_NAME}' ha sido creado y activado."
 echo -e "Ahora ejecutará '${SERVICE_NAME}' a las ${EXEC_DATE}."
-echo -e "\nPara ver el estado de todos los timers, usa:"
-echo -e "sudo systemctl list-timers --all"
-echo -e "\nPara ver los logs de ejecución del servicio (que es activado por el timer), usa:"
-echo -e "sudo journalctl -u ${SERVICE_NAME} -f"

@@ -1,14 +1,16 @@
 #!/bin/bash
 
+# Salir si un comando falla
 set -e
 set -o pipefail
 
+# Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-CONSOLIDATOR_SCRIPT_PATH="$working_dir/consolidado.sh"
-REPORTER_SCRIPT_PATH="$working_dir/reportes.sh"
 
 # Constantes del Servicio
+CONSOLIDATOR_SCRIPT_PATH="$working_dir/consolidado.sh"
+REPORTER_SCRIPT_PATH="$working_dir/reportes.sh"
 SERVICE_NAME="reporter-apolo11.service"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"
 
@@ -26,7 +28,7 @@ if [ ! -f "$REPORTER_SCRIPT_PATH" ] || [ ! -x "$REPORTER_SCRIPT_PATH" ]; then
     exit 1
 fi
 
-echo "Ambos scripts existen y tienen permisos de ejecución. Continuando..."
+echo "Ambos scripts existen y tienen permisos de ejecución"
 
 
 # Creación del archivo de servicio

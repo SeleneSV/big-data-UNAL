@@ -1,4 +1,4 @@
-# CONFIGURACIONES
+# Constantes
 SERVICE_NAME="generator-apolo11.service"
 TIMER_NAME="generator-apolo11.timer"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"

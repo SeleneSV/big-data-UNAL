@@ -1,11 +1,9 @@
-# Verificar el modo del reporter
 # Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# Constantes
 GENERATOR_CONFIG_FILE="$working_dir/generator.config"
 REPORTER_CONFIG_FILE="$working_dir/generator.config"
-
-# CONFIGURACIONES
 GENERATOR_SERVICE_NAME="generator-apolo11.service"
 GENERATOR_TIMER_NAME="generator-apolo11.timer"
 REPORTER_SERVICE_NAME="reporter-apolo11.service"
@@ -53,10 +51,9 @@ echo -e "\nProceso completado"
 echo -e "El timer '${GENERATOR_TIMER_NAME}' ha sido creado y activado."
 echo -e "Ahora ejecutará '${GENERATOR_SERVICE_NAME}' cada ${ON_UNIT_ACTIVE_SEC}."
 
-
 else
 
-# Actualizar reporter con config con exec_date de config del sistema y 
+# Actualizar reporter con config con exec_date de config del sistema
 cat << EOF > "${REPORTER_CONFIG_FILE}"
 MODE=$MODE
 EXEC_DATE=$EXEC_DATE

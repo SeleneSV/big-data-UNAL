@@ -1,10 +1,11 @@
 #!/bin/bash
 
+# Salir si un comando falla
 set -e
 
+# Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-SCRIPT_PATH="$working_dir/apolo_11.sh"
 
 # CARGAR CONFIGURACIONES
 generator_config_file="$working_dir/generator.config"
@@ -16,6 +17,7 @@ if [ -f "$generator_config_file" ]; then
     fi
 
 # Constantes del Servicio
+SCRIPT_PATH="$working_dir/apolo_11.sh"
 SERVICE_NAME="generator-apolo11.service"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"
 
@@ -39,12 +41,11 @@ if [ "${USE_FLOCK}" = "true" ]; then
     echo "Configurando servicio con control de concurrencia (flock)."
 else
     EXEC_START="${SCRIPT_PATH}"
-    echo "Configurando servicio en modo simple (sin flock)."
+    echo "Configurando servicio en modo simple."
 fi
 
 # Creación del archivo de servicio
 echo "Creando archivo de servicio en: ${SERVICE_FILE}"
-
 
 if [ "$REPORTER_ACTIVE" = "false" ]; then
 
@@ -52,16 +53,11 @@ if [ "$REPORTER_ACTIVE" = "false" ]; then
 cat << EOF > "${SERVICE_FILE}"
 [Unit]
 Description=Servicio que ejecuta el script de generación de datos simulados
-# Descomentar si el script necesita red
-# After=network.target
 
 [Service]
 Type=oneshot
 ExecStart=${EXEC_START}
 
-[Install]
-# Habilita el servicio para que se inicie en el arranque del sistema (o contenedor)
-# WantedBy=multi-user.target
 EOF
 
 else
@@ -69,17 +65,12 @@ else
 cat << EOF > "${SERVICE_FILE}"
 [Unit]
 Description=Servicio que ejecuta el script de generación de datos simulados
-# Descomentar si el script necesita red
-# After=network.target
 OnSuccess=reporter-apolo11.service
 
 [Service]
 Type=oneshot
 ExecStart=${EXEC_START}
 
-[Install]
-# Habilita el servicio para que se inicie en el arranque del sistema (o contenedor)
-# WantedBy=multi-user.target
 EOF
 fi
 

@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Salir inmediatamente si un comando falla
+# Salir si un comando falla
 set -e
 
+# Directorio de trabajo
 working_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 
 # CARGAR CONFIGURACIONES
 generator_config_file="$working_dir/generator.config"
@@ -14,10 +16,9 @@ if [ -f "$generator_config_file" ]; then
         ON_UNIT_ACTIVE_SEC="20s"
     fi
 
-# Configuración de tiempos de ejecución
-ON_BOOT_SEC="15s"
 
-# Constantes
+# Constantes del servicio
+ON_BOOT_SEC="15s"
 SERVICE_NAME="generator-apolo11.service"
 TIMER_NAME="generator-apolo11.timer"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}"
@@ -49,5 +50,6 @@ AccuracySec=1s
 WantedBy=timers.target
 EOF
 
+# Asignar permisos al archivo de servicio
 chmod 644 "${TIMER_FILE}"
 echo "Archivo de timer creado con éxito."
