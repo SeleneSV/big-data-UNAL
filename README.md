@@ -92,7 +92,7 @@ El usuario inicia manualmente el script controlador, que permanece en ejecución
 
 
 #### **Ejecución**
-1. Clonar el repositorio y acceder a la solución 1:
+1. Clonar el repositorio y acceder a la solución 2:
 
 ```bash
 git clone https://github.com/SeleneSV/big-data-UNAL.git
