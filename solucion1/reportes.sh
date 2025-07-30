@@ -109,3 +109,4 @@ if [ "$file_count" -gt 0 ]; then
 else
     echo "No se encontraron archivos .log en '$LOGS_DIR' para mover. No se requiere limpieza."
 fi
+
