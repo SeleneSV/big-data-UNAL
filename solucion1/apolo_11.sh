@@ -42,7 +42,6 @@ echo "Total de logs: $total_logs"
 
 echo "Iniciando generación de logs..."
 for i in $(seq 1 $total_logs); do
-    
     # Seleccionar nombre de la misión
     apl=${misions_names[$(($RANDOM % $total_misions))]}
     random_num=$(($RANDOM%($max-$min+1)+$min))
